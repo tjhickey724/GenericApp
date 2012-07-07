@@ -1,5 +1,7 @@
 SampleApp::Application.routes.draw do
 
+  resources :lost_founds
+
   resources :users
   resources :sessions, only: [:new, :create, :destroy]
 

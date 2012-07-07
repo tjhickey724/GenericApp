@@ -1,0 +1,25 @@
+<p id="notice"><%= notice %></p>
+
+<p>
+  <b>User:</b>
+  <%= @lost_found.user_id %>
+</p>
+
+<p>
+  <b>Title:</b>
+  <%= @lost_found.title %>
+</p>
+
+<p>
+  <b>Description:</b>
+  <%= @lost_found.description %>
+</p>
+
+<p>
+  <b>Approved:</b>
+  <%= @lost_found.approved %>
+</p>
+
+
+<%= link_to 'Edit', edit_lost_found_path(@lost_found) %> |
+<%= link_to 'Back', lost_founds_path %>
