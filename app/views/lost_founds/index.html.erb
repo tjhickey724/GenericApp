@@ -1,4 +1,4 @@
-<h1>Listing lost_founds</h1>
+<h1>Listing of Items that have been Found at Brandeis</h1>
 
 <table>
   <tr>
@@ -12,14 +12,17 @@
   </tr>
 
 <% @lost_founds.each do |lost_found| %>
+  <% if !(lost_found.approved || (current_user.id == lost_found.user_id)) then next; end %>
   <tr>
     <td><%= lost_found.user_id %></td>
     <td><%= lost_found.title %></td>
     <td><%= lost_found.description %></td>
     <td><%= lost_found.approved %></td>
     <td><%= link_to 'Show', lost_found %></td>
+<% if current_user.id == lost_found.user_id %>
     <td><%= link_to 'Edit', edit_lost_found_path(lost_found) %></td>
     <td><%= link_to 'Destroy', lost_found, confirm: 'Are you sure?', method: :delete %></td>
+<% end %>
   </tr>
 <% end %>
 </table>

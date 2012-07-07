@@ -20,6 +20,8 @@
   <%= @lost_found.approved %>
 </p>
 
-
+<% if current_user?(@lost_found.user)%>
 <%= link_to 'Edit', edit_lost_found_path(@lost_found) %> |
+<% end %>
 <%= link_to 'Back', lost_founds_path %>
+

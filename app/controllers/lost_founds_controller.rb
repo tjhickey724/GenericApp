@@ -1,5 +1,6 @@
 class LostFoundsController < ApplicationController
   before_filter :signed_in_user, only: [:new, :edit, :update]
+  before_filter :correct_user, only: [:edit, :update, :destroy], notice: "You can't do that!!"
   
   
   # GET /lost_founds
@@ -89,6 +90,11 @@ private
   
   def signed_in_user
     redirect_to signin_path, notice: "Please sign in." unless signed_in?
+  end
+  
+  def correct_user
+      @lostfound = LostFound.find(params[:id])
+      redirect_to(root_path) unless current_user?(@lostfound.user)
   end
   
 end
