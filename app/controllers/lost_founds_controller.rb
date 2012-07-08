@@ -13,6 +13,12 @@ class LostFoundsController < ApplicationController
       format.json { render json: @lost_founds }
     end
   end
+  
+  def mobiledownload
+    @lost_founds = LostFound.find(:all, order: "created_at DESC")
+    render json: @lost_founds
+  end
+  
 
   # GET /lost_founds/1
   # GET /lost_founds/1.json
@@ -55,6 +61,28 @@ class LostFoundsController < ApplicationController
         format.json { render json: @lost_found.errors, status: :unprocessable_entity }
       end
     end
+  end
+  
+  # POST /mobileupload.json
+  def mobileupload
+    @lost_found = LostFound.new()
+    @user = User.find_by_email(params[:email])
+    if @user.nil?
+      render json: {status: :error}
+    else
+    
+    @lost_found.user_id = @user.id
+    @lost_found.title = params[:title]
+    @lost_found.description = params[:description]
+    @lost_found.approved = false
+    
+
+      if @lost_found.save
+         render json: @lost_found, status: :created, location: @lost_found 
+      else
+         render json: @lost_found.errors, status: :unprocessable_entity 
+      end
+   end
   end
 
   # PUT /lost_founds/1
