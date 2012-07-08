@@ -1,28 +1,30 @@
-<h1>Listing of Items that have been Found at Brandeis</h1>
+<h1>Brandeis Virtual Lost and Found</h1>
 
-<table>
+<table class="table table-bordered table-striped">
   <tr>
-    <th>User</th>
-    <th>Title</th>
-    <th>Description</th>
-    <th>Approved</th>
-    <th></th>
-    <th></th>
+    <th>Item Found</th>
+    <th>Date/Time Found</th>
+    <th>Found by</th>
+
     <th></th>
   </tr>
 
 <% @lost_founds.each do |lost_found| %>
-  <% if !(lost_found.approved || (current_user.id == lost_found.user_id)) then next; end %>
+  <% if !(lost_found.approved || 
+	      (current_user && current_user.id == lost_found.user_id)) then next; end %>
   <tr>
-    <td><%= lost_found.user_id %></td>
-    <td><%= lost_found.title %></td>
-    <td><%= lost_found.description %></td>
-    <td><%= lost_found.approved %></td>
-    <td><%= link_to 'Show', lost_found %></td>
-<% if current_user.id == lost_found.user_id %>
-    <td><%= link_to 'Edit', edit_lost_found_path(lost_found) %></td>
-    <td><%= link_to 'Destroy', lost_found, confirm: 'Are you sure?', method: :delete %></td>
+	<td><%= link_to lost_found.title, lost_found %></td>
+	
+    <td><%=  lost_found.created_at.localtime.strftime("%Y-%m-%d %H:%M:%S") %></td>
+    <td><%= lost_found.user.email %> </td>
+
+    <td><%= link_to 'Show', lost_found %>
+<% if current_user && current_user.id == lost_found.user_id %>
+    <br/> <%= link_to 'Edit', edit_lost_found_path(lost_found) %>
+    <br/> <%= link_to 'Destroy', lost_found, confirm: 'Are you sure?', method: :delete %>
+    <br/> Approved: <%= lost_found.approved %>
 <% end %>
+    </td>
   </tr>
 <% end %>
 </table>

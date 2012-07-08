@@ -4,7 +4,8 @@
       <%= link_to "Generic App", root_path, id: "logo" %> 
       <nav>
         <ul class="nav pull-right">
-          <li><%= link_to "Home", root_path %></li> <li><%= link_to "Help", help_path %></li> 
+          <li><%= link_to "View all Found Items", root_path %></li> 
+          <li><%= link_to "Report a Found Item", new_lost_found_path %> </li>
 <% if signed_in? %>
           <li><%= link_to "Users", users_path %></li> <li id="fat-menu" class="dropdown">
               <a href="#" class="dropdown-toggle" data-toggle="dropdown">
@@ -20,6 +21,7 @@
 <% else %>
           <li><%= link_to "Sign in", signin_path %></li>
 <% end %>
+          <li><%= link_to "Help", help_path %></li> 
         </ul>
       </nav>
     </div>

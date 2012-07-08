@@ -6,7 +6,7 @@ class LostFoundsController < ApplicationController
   # GET /lost_founds
   # GET /lost_founds.json
   def index
-    @lost_founds = LostFound.all
+    @lost_founds = LostFound.find(:all, order: "created_at DESC")
 
     respond_to do |format|
       format.html # index.html.erb
